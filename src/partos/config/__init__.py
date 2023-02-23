@@ -1,0 +1,1 @@
+from src.partos.config.vars import *
