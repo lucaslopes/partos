@@ -1,1 +1,1 @@
-from src.partos.config.vars import *
+from .vars import *
