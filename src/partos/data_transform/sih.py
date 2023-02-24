@@ -12,7 +12,7 @@ from partos.config import (
     PARTOS, FILTERS, COLUMNS)
 
 
-def transform_sih(
+def transform_sih_old(
         pysus_dir=DB_PYSUS,
         output_path=DB_PATH,
         columns=COLUMNS,

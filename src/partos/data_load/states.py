@@ -1,7 +1,7 @@
 import json
 import requests
-from src.partos.config import IBGE_STATES
-from src.partos.utils import save_local
+from partos.config import IBGE_STATES
+# from src.partos.utils import save_local
 
 
 

@@ -30,13 +30,16 @@ PARTOS = {
 FILTERS = [
     ("IDADE", ">=", 10),
     ("IDADE", "<=", 49),
-    ("PROC_REA", 'in', '@list(PARTOS)'),
+    ("PROC_REA", 'in', '@'),
 ]
 
 
 # Especifique as colunas que você deseja selecionar e os novos nomes das colunas
 COLUMNS = {
+    # 'DT_INTER': 'data',
+    'PROC_REA': 'parto',
     'MUNIC_RES': 'origem',
     'MUNIC_MOV': 'destino',
-    'PROC_REA': 'parto',
+    'CNES': 'cnes',
+    'IDADE': 'idade',
 }

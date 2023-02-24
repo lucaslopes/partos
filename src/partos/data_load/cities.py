@@ -1,7 +1,7 @@
 from datetime import datetime
 import pandas as pd
-from src.partos.config import URL_DB_CITIES, DB_CITIES
-from src.partos.utils import save_local
+from partos.config import URL_DB_CITIES, DB_CITIES
+from partos.utils import save_local
 
 
 def load_cities(
