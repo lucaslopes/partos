@@ -21,6 +21,24 @@ def download_sih(
   return True
 
 
+def transform(
+    df,
+    filters,
+    columns,
+    partos
+  ):
+  for col, op, val in filters:
+    if op == 'in':
+      partos_list = list(partos)
+      val = '@partos_list'
+    df = df.query(f"{col} {op} {val}")
+  df = df.loc[
+    :, list(columns.keys())
+  ].rename(columns=columns)
+  df['parto'].replace(partos, inplace=True)
+  return df
+
+
 def transform_sih(
     iterator,
     filters,
@@ -34,15 +52,7 @@ def transform_sih(
     total=27*10*12)
   for uf, ano, mes in iterator:
     df = download(uf, ano, mes)
-    for col, op, val in filters:
-      if op == 'in':
-        partos_list = list(partos)
-        val = '@partos_list'
-      df = df.query(f"{col} {op} {val}")
-    df = df.loc[
-      :, list(columns.keys())
-    ].rename(columns=columns)
-    df['parto'].replace(partos, inplace=True)
+    df = transform(df, filters, columns, partos)
     df['uf'] = uf
     df['ano'] = ano
     df['mes'] = mes

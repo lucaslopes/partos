@@ -11,8 +11,8 @@ from partos import config
 
 
 @st.cache_data
-def load_data():
-    return pd.read_parquet(f'{config.DB_PATH}sih.parquet')
+def load_data(path):
+    return pd.read_parquet(path)
 
 
 @st.cache_data
@@ -26,11 +26,16 @@ def group_df(
     df_['ano'] = df_['ano'].astype(str)
     df_['mes'] = df_['mes'].apply(lambda x: f"{x:02d}")
     df_['data'] = df_['ano'] + '-' + df_['mes']
+    df_['data'] = pd.to_datetime(df_['data'])
     df_.drop(columns=cols[:-1], inplace=True)
     return df_
 
+st.header('Introdução')
 
-df = load_data()
-df_ = group_df(df)
-fig = px.line(df_, x='data', y='procedimentos', color='parto')
-st.plotly_chart(fig)
+path1 = f'{config.DB_PATH}sih.parquet'
+path2 = f'{config.DB_PATH}sih_pcdas.parquet'
+for pth in [path1, path2]:
+    df = load_data(pth)
+    df_ = group_df(df)
+    fig = px.scatter(df_, x='data', y='procedimentos', color='parto', trendline='ols')
+    st.plotly_chart(fig)
